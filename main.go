@@ -32,7 +32,11 @@ func main() {
 	firefoxBinary := "/Applications/Firefox.app/Contents/MacOS/firefox"
 	firefoxOptions := map[string]interface{}{
 		"args": []string{
-			"--headless", // optional argument to run Firefox in headless mode
+			//"--headless", // optional argument to run Firefox in headless mode
+			"window-size=1200x900",
+			"--no-sandbox",
+			"--disable-dev-shm-usage",
+			"disable-gpu",
 		},
 		"binary": firefoxBinary,
 	}
@@ -54,7 +58,11 @@ func main() {
 		fmt.Printf("Could not retreive info from %v, %v", connectionBase, err)
 		return
 	}
+	pageSource, _ := wd.PageSource()
+	fmt.Println(pageSource)
 
-	fmt.Printf("syerseresr")
+	err = wd.Get("https://dappradar.com/v2/api/dapps?params=UkdGd2NGSmhaR0Z5Y0dGblpUMHhKbk5uY205MWNEMXRZWGdtWTNWeWNtVnVZM2s5VlZORUptWmxZWFIxY21Wa1BURW1jbUZ1WjJVOVpHRjVKbk52Y25ROWRYTmxjaVp2Y21SbGNqMWtaWE5qSm14cGJXbDBQVEky")
+	source, _ := wd.PageSource()
+	fmt.Printf(source)
 
 }
